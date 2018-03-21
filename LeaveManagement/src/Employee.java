@@ -32,7 +32,9 @@ public class Employee extends User {
 		return leaveApplication.getApplicationStatus();
 	}
 	
-	public void cancelLeave() {
+	public void cancelLeave(LeaveApplication leaveApplication) {
+		
+		leaveApplication.setApplicationStatus(Cancelled);
 		
 	}
 	public void updateLeaveRequest() {

@@ -25,8 +25,11 @@ public class Employee extends User {
 		//Need to display this on the web page
 	}
 	
-	public void viewApplicationStatus(LeaveApplication leaveApplication) {
+	
+	public Status viewApplicationStatus(LeaveApplication leaveApplication) {
 		
+		// Fetch and return Leave Application Status
+		return leaveApplication.getApplicationStatus();
 	}
 	
 	public void cancelLeave() {

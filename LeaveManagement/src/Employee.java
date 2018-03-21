@@ -37,7 +37,18 @@ public class Employee extends User {
 		leaveApplication.setApplicationStatus(Cancelled);
 		
 	}
-	public void updateLeaveRequest() {
+	public void updateLeaveRequest(LeaveApplication updatedleaveApplication) {
+		
+		for (LeaveApplication leaveApplication : empLeaveRequestQ)
+		{
+			// Check for the required Leave Application by matching the ID
+			if (leaveApplication.getApplicationID() == updatedleaveApplication.getApplicationID())
+			{
+				leaveApplication.setLeaveType(updatedleaveApplication.getLeaveType());
+				leaveApplication.setNoOfDays(updatedleaveApplication.getNoOfDays());
+				leaveApplication.setApplicationStatus(updatedleaveApplication.getApplicationStatus());
+			}
+		}
 		
 	}
 	

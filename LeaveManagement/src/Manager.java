@@ -1,9 +1,10 @@
-
+import java.util.*;
 public class Manager extends User {
 	private ArrayList<LeaveApplication> empLeaveRequestQ;
 	private int managerID;
-	private ArrayList<employee> empList;
+	private ArrayList<Employee> empList;
 	public ArrayList<LeaveApplication> viewLeaveRequest() {
+		return empLeaveRequestQ;
 		
 	}
 	

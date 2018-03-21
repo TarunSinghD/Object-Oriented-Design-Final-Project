@@ -1,4 +1,4 @@
-
+import java.util.*;
 public class Employee extends User {
 	private ArrayList<LeaveApplication> empLeaveRequestQ;
 	private int managerID;

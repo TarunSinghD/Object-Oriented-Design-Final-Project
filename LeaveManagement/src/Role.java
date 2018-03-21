@@ -1,4 +1,4 @@
 
 public enum Role{
-    EMPLOYEE,MANAGER,HR
+    Employee, Manager, HR
 }

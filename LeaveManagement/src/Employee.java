@@ -17,11 +17,15 @@ public class Employee extends User {
 		
 	}
 	
-	public void checkLeaveBalance(Leave leaveType) {
+	public int checkLeaveBalance(Leave leaveType) {
 		
+		// Get the leave balance from leave balance class
+		empLeaveBalance.viewLeaveBalance(leaveType);
+		
+		//Need to display this on the web page
 	}
 	
-	public void viewApplicationStatus() {
+	public void viewApplicationStatus(LeaveApplication leaveApplication) {
 		
 	}
 	

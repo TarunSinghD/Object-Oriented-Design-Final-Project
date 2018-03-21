@@ -27,15 +27,23 @@ public class LeaveApplication {
 		
 		// Set default application status to Processing
 		LeaveApplication.setApplicationStatus(Processing);
-		return null;
-
+		
+		return this;
 	}
+	
+	// This function will be called when the anyone wants see the leave application details
 	public void viewLeaveApp() {
 		
-	}
-	public void  updateLeaveAppStatus(Status applicationStatus) {
+		// The details to be displayed in the HTML table is populated using this function
 		
 	}
+	
+	// Function is called when anyone clicks on update
+	public void  updateLeaveAppStatus(Status applicationStatus) {
+		
+		
+	}
+	
 	public Leave getLeaveType() {
 		return leaveType;
 		

@@ -41,7 +41,7 @@ public class LeaveApplication {
 	// Function is called when anyone clicks on update
 	public void  updateLeaveAppStatus(Status applicationStatus) {
 		
-		
+		setApplicationStatus(applicationStatus);
 	}
 	
 	public Leave getLeaveType() {

@@ -5,7 +5,15 @@ public class Employee extends User {
 	private LeaveBalance empLeaveBalance;
 	private Leave leaveType;
 	
-	public void applyLeave() {
+	// This function will be called when user clicks on the apply leave button
+	public void applyLeave(Leave leaveType, int noOfDays) 
+	{
+		//Create a new object of type leave application
+		LeaveApplication leaveApplication = new LeaveApplication();
+		
+		leaveApplication.createLeaveApp(this.getEmployeeID(), leaveType, noOfDays);
+		
+		empLeaveRequestQ.add(leaveApplication);
 		
 	}
 	

@@ -49,11 +49,11 @@ public class LeaveApplication {
 		
 	}
 	public int getEmployeeID() {
-		return 0;
+		return employeeID;
 		
 	}
 	public int getNoOfDays() {
-		return 0;
+		return noOfDays;
 		
 	}
 	public int getApplicationID() {
@@ -64,20 +64,20 @@ public class LeaveApplication {
 		return applicationStatus;
 		
 	}
-	public void setLeaveType(Leave leaveType ) {
-		
+	public void setLeaveType(Leave _leaveType ) {
+		this.leaveType = _leaveType
 	}
-	public void setEmployeeID(int employeeID ) {
-		
+	public void setEmployeeID(int _employeeID ) {
+		this.employeeID = _employeeID;
 	}
-	public void setNoOfDays(int noOfDays ) {
-		
+	public void setNoOfDays(int _noOfDays ) {
+		this.noOfDays = _noOfDays;
 	}
-	public void setApplicationID(int applicationID ) {
-		
+	public void setApplicationID(int _applicationID ) {
+		this.applicationID = _applicationID;
 	}
-	public void  setApplicationStatus(Status applicationStatus ) {
-		
+	public void  setApplicationStatus(Status _applicationStatus ) {
+		this.applicationStatus = _applicationStatus;
 	}
 
 }

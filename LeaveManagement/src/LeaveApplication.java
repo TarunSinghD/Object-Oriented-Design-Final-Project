@@ -6,29 +6,33 @@ public class LeaveApplication {
 	private int noOfDays;
 	private int applicationID ;
 	private Status applicationStatus;
-	public static applicationCount;
+	public static int applicationCount;
 	
 	public LeaveApplication createLeaveApp (int employeeID ,Leave leaveType , int noOfDays ) 
 	{
 		//Set employee ID, information available in this class itself
-		leaveApplication.setEmployeeID(employeeID);
+		this.setEmployeeID(employeeID);
 		
 		// Set the leave type, information obtained from HTML page
-		leaveApplication.setLeaveType(leaveType);
+		this.setLeaveType(leaveType);
 		
 		// Set no of days, information obtained from HTML page
-		leaveApplication.setNoOfDays(noOfDays);
-		
-		// Increment the static variable keeping track of no of leave applications
-		LeaveApplication.applicationCount++;
+		this.setNoOfDays(noOfDays);		
 		
 		// Set leave application ID
-		LeaveApplication.setApplicationID(LeaveApplication.applicationCount);
+		this.setApplicationID(LeaveApplication.appCounter());
 		
 		// Set default application status to Processing
-		LeaveApplication.setApplicationStatus(Processing);
+		this.setApplicationStatus(Status.Processing);
 		
 		return this;
+	}
+	
+	public static int appCounter() {
+		// Increment the static variable keeping track of no of leave applications
+		return LeaveApplication.applicationCount++;
+		
+	
 	}
 	
 	// This function will be called when the anyone wants see the leave application details
@@ -65,7 +69,7 @@ public class LeaveApplication {
 		
 	}
 	public void setLeaveType(Leave _leaveType ) {
-		this.leaveType = _leaveType
+		this.leaveType = _leaveType;
 	}
 	public void setEmployeeID(int _employeeID ) {
 		this.employeeID = _employeeID;

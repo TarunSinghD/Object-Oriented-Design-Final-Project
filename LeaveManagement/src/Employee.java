@@ -17,12 +17,13 @@ public class Employee extends User {
 		
 	}
 	
-	public int checkLeaveBalance(Leave leaveType) {
+	public void checkLeaveBalance(Leave leaveType) {
 		
 		// Get the leave balance from leave balance class
 		empLeaveBalance.viewLeaveBalance(leaveType);
 		
 		//Need to display this on the web page
+	
 	}
 	
 	
@@ -34,7 +35,7 @@ public class Employee extends User {
 	
 	public void cancelLeave(LeaveApplication leaveApplication) {
 		
-		leaveApplication.setApplicationStatus(Cancelled);
+		leaveApplication.setApplicationStatus(Status.Cancelled);
 		
 	}
 	public void updateLeaveRequest(LeaveApplication updatedleaveApplication) {
@@ -57,12 +58,13 @@ public class Employee extends User {
 		return managerID;
 	}
 	
-	public int getLeaveBalance() {
-		
+	public LeaveBalance getLeaveBalance() {
+		return empLeaveBalance;
 	}
 	
 	public Leave getLeaveType() {
 		
+		return leaveType;
 	}
 	
 	public void setManagerID(int managerID) {

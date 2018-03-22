@@ -4,10 +4,6 @@
  * and open the template in the editor.
  */
 
-/**
- *
- * @author vennela
- */
 
     
 public class User {
@@ -27,30 +23,30 @@ public class User {
 }
 
 public String getUsername(){
-        return null;
+        return username;
     
 }
 
 public String getPassword(){
-        return null;
+        return password;
     
 }
 
 public String getName(){
-        return null;
+        return name;
     
 }
 
 
 public Role getRoleType(){
-        return null;
+        return roletype;
        // return null;
     
 }
 
 
 public int getEmployeeID(){
-        return 0;
+        return employeeID;
 
 }
 

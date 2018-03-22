@@ -5,22 +5,50 @@ public class Employee extends User {
 	private LeaveBalance empLeaveBalance;
 	private Leave leaveType;
 	
-	public void applyLeave() {
+	// This function will be called when user clicks on the apply leave button
+	public void applyLeave(Leave leaveType, int noOfDays) 
+	{
+		//Create a new object of type leave application
+		LeaveApplication leaveApplication = new LeaveApplication();
+		
+		leaveApplication.createLeaveApp(this.getEmployeeID(), leaveType, noOfDays);
+		
+		empLeaveRequestQ.add(leaveApplication);
 		
 	}
 	
-	public void checkLeaveBalance(Leave leaveType) {
+	public int checkLeaveBalance(Leave leaveType) {
 		
+		// Get the leave balance from leave balance class
+		empLeaveBalance.viewLeaveBalance(leaveType);
+		
+		//Need to display this on the web page
 	}
 	
-	public void viewApplicationStatus() {
+	
+	public Status viewApplicationStatus(LeaveApplication leaveApplication) {
 		
+		// Fetch and return Leave Application Status
+		return leaveApplication.getApplicationStatus();
 	}
 	
-	public void cancelLeave() {
+	public void cancelLeave(LeaveApplication leaveApplication) {
+		
+		leaveApplication.setApplicationStatus(Cancelled);
 		
 	}
-	public void updateLeaveRequest() {
+	public void updateLeaveRequest(LeaveApplication updatedleaveApplication) {
+		
+		for (LeaveApplication leaveApplication : empLeaveRequestQ)
+		{
+			// Check for the required Leave Application by matching the ID
+			if (leaveApplication.getApplicationID() == updatedleaveApplication.getApplicationID())
+			{
+				leaveApplication.setLeaveType(updatedleaveApplication.getLeaveType());
+				leaveApplication.setNoOfDays(updatedleaveApplication.getNoOfDays());
+				leaveApplication.setApplicationStatus(updatedleaveApplication.getApplicationStatus());
+			}
+		}
 		
 	}
 	

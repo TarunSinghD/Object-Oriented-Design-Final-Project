@@ -1,0 +1,59 @@
+<html>
+<head>
+
+<style>
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+
+li {
+    float: left;
+}
+
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li a:hover {
+    background-color: #111;
+</style>
+</head>
+<center>
+<body><h1>Leave management</h1>
+<ul>
+  <li><a class="active" href="#home">Apply Leave</a></li>
+  <li><a href="#news">Status</a></li>
+  <li><a href="#contact">Leave Balance</a></li>
+  <li><a href="#contact">Update Leave</a></li>
+  <li><a href="#about">Logoff</a></li>
+</ul>
+</body>
+<h3>select type of leave</h3>
+<select>
+  <option value="casual leave">Casual</option>
+  <option value="Sick">Sick</option>
+  <option value="Paid">Paid</option>
+</select>
+<br>
+<br>
+<br>
+<form action="/action_page.php">
+Enter start date:<br>
+<input type="date" name="bday" max="1979-12-31"><br><br>
+Enter end date:<br>
+<input type="date" name="bday" min="2000-01-02"><br><br>
+<h5>Number of Days: <input type="text" name="username" style = "background:bfbfbf; color:#212121; border-color:#212121;" onFocus="this.style.background:'#ffffff';" onBlur="this.style.background='#bfbfbf';"> </h5>  
+
+</form>
+<button type="button" onclick="alert('Hello world!')">Apply</button>
+<button type="button" onclick="alert('Hello world!')">Cancel</button>
+</center>
+</html>

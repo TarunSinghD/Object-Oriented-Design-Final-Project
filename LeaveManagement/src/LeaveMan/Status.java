@@ -1,3 +1,4 @@
+package LeaveMan;
 
 public enum Status {
 	Processing,
@@ -5,3 +6,4 @@ public enum Status {
 	Cancelled,
 	Denied
 }
+

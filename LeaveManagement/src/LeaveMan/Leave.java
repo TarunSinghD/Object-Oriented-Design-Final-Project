@@ -1,3 +1,4 @@
+package LeaveMan;
 
 public enum Leave {
 	Sick,

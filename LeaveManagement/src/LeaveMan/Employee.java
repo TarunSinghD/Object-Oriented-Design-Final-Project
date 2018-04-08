@@ -1,3 +1,4 @@
+package LeaveMan;
 import java.util.*;
 public class Employee extends User {
 	private ArrayList<LeaveApplication> empLeaveRequestQ;

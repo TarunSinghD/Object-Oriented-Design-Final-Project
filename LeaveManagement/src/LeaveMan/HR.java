@@ -1,3 +1,4 @@
+package LeaveMan;
 import java.util.*;
 public class HR extends User{
 	

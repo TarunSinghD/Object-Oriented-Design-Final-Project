@@ -1,9 +1,21 @@
 package LeaveMan;
 import java.util.*;
 public class HR extends User{
-	
+
+private static HR HR=null;
 private ArrayList<LeaveApplication> hrLeaveAprrovalQ;
 private ArrayList<LeaveApplication> empList;
+
+private HR() {
+	
+}
+
+public static HR getHR() {
+	if (HR == null)
+		HR = new HR();
+	return HR;
+	
+}
 
 public ArrayList<LeaveApplication> viewLeaveApproval() {
 	return empList;

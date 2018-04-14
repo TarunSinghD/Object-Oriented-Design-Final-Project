@@ -1,0 +1,6 @@
+package com.leave.model;
+
+public enum Role{
+    Employee, Manager, HR
+
+}

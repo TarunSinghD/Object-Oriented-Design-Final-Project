@@ -1,9 +1,12 @@
 package com.leave.model;
 import java.util.*;
 public class HR extends User{
-	
+
+
 private ArrayList<LeaveApplication> hrLeaveAprrovalQ;
 private ArrayList<LeaveApplication> empList;
+
+
 
 public ArrayList<LeaveApplication> viewLeaveApproval() {
 	return empList;

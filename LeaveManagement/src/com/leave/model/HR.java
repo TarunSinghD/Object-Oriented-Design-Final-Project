@@ -1,4 +1,4 @@
-package LeaveMan;
+package com.leave.model;
 import java.util.*;
 public class HR extends User{
 	

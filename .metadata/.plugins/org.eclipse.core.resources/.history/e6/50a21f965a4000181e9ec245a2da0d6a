@@ -1,0 +1,78 @@
+package com.leave.model;
+import java.sql.*;
+
+import java.io.IOException;
+import java.util.*;
+
+import javax.servlet.http.HttpServletResponse;
+
+public class HR extends User  {
+
+	private ArrayList<LeaveApplication> hrLeaveAprrovalQ;
+	private ArrayList<Employee> empList;
+
+	public ArrayList<Employee> viewLeaveApproval() {
+		return empList;
+
+	}
+
+	public void updateleaveBalance() {
+
+	}
+
+	public ArrayList<Employee> viewEmployeeDetails() {
+		try {
+
+				// load and register JDBC driver for MySQL
+				Class.forName("com.mysql.jdbc.Driver"); 
+				Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/employee?autoReconnect=true&useSSL=false","root","sao!381TsL");
+				Statement stmt=con.createStatement();
+				
+				
+				//stmt.executeQuery("INSERT INTO employee.user (employeeID, username, password) VALUES (7, 'ta', 'emp')");
+				/*
+				String sql = "INSERT INTO employee.user (employeeID, username, password)" +
+				        "VALUES (?, ?, ?)";
+	
+				PreparedStatement preparedStatement = con.prepareStatement(sql);
+				preparedStatement.setString(1, "5");
+				preparedStatement.setString(2, "Ta");
+				preparedStatement.setString(3, "Test3");
+				preparedStatement.executeUpdate(); 
+				*/
+				
+				ResultSet rs=stmt.executeQuery("SELECT * FROM employee.user");
+				while(rs.next())
+				{	
+					
+				}
+			}
+			catch (Exception exc) {
+				out.print(exc);
+			}
+
+	}
+
+	public Employee addEmployee() {
+		return null;
+
+	}
+
+	public void deleteEmployee(int employeeID) {
+
+	}
+
+	public void handleRequest(HttpServletResponse response) {
+
+		System.out.println("HR!!!!!!!!!");
+		printUserDetails();
+		try
+		{
+			response.sendRedirect("/LeaveManagement/JSP/HR.jsp");
+		}
+		catch (IOException ie)
+		{
+			ie.printStackTrace();
+		}
+	}
+}

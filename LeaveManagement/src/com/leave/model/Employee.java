@@ -1,5 +1,7 @@
 package com.leave.model;
 import java.util.*;
+
+import javax.servlet.http.HttpServletResponse;
 public class Employee extends User {
 	private ArrayList<LeaveApplication> empLeaveRequestQ;
 	private int managerID;
@@ -73,6 +75,11 @@ public class Employee extends User {
 	}
 	
 	public void setLeaveType(Leave leaveType) {
+		
+	}
+	
+	public void handleRequest(HttpServletResponse response)
+	{
 		
 	}
 	

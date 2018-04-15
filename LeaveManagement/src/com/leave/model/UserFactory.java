@@ -1,10 +1,13 @@
 package com.leave.model;
 
+
+
 public class UserFactory {
 	
 	public User createUser(String roleType)
 	{
-		User user = new User();
+		System.out.println("Creating User");
+		User user = new Employee();;
 		
 		if (roleType.equals("Employee"))
 		{
@@ -18,6 +21,7 @@ public class UserFactory {
 		
 		else if (roleType.equals("HR"))
 		{
+			System.out.println("Creating HR");
 			user = new HR();
 		}
 		

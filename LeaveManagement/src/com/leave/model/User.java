@@ -5,7 +5,10 @@ package com.leave.model;
  * and open the template in the editor.
  */
 
-public class User {
+import java.io.IOException;
+import javax.servlet.http.HttpServletResponse;
+
+public abstract class User {
 
 	private int employeeID;
 	private String password;
@@ -57,11 +60,23 @@ public class User {
 		this.employeeID = employeeID;
 	}
 
-	public void setAttributes(int employeeID, String password, String name, String roletype) 
+	public void setAttributes(int employeeID, String password, String name, String roleType) 
 	{
+		System.out.println("Setting attributes");
 		this.setEmployeeID(employeeID);
 		this.setPassword(password);
 		this.setName(name);
-		this.setRoleType(roletype);
+		this.setRoleType(roleType);
 	}
+	
+	public void printUserDetails()
+	{
+		System.out.println(this.getEmployeeID());
+		System.out.println(this.getPassword());
+		System.out.println(this.getName());
+		System.out.println(this.getRoleType());
+	}
+	
+	public abstract void handleRequest(HttpServletResponse response) throws IOException;
+	
 }

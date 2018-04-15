@@ -1,0 +1,41 @@
+package com.leave.model;
+
+import java.util.*;
+
+import javax.servlet.http.HttpServletResponse;
+
+public class HR extends User {
+
+	private ArrayList<LeaveApplication> hrLeaveAprrovalQ;
+	private ArrayList<Employee> empList;
+
+	public ArrayList<Employee> viewLeaveApproval() {
+		return empList;
+
+	}
+
+	public void updateleaveBalance() {
+
+	}
+
+	public Employee addEmployeeDetails() {
+		return null;
+
+	}
+
+	public Employee addEmployee() {
+		return null;
+
+	}
+
+	public void deleteEmployee(int employeeID) {
+
+	}
+
+	public void handleRequest(HttpServletResponse response) {
+
+		System.out.println("HR!!!!!!!!!");
+		printUserDetails();
+		response.sendRedirect("HR.jsp");
+	}
+}

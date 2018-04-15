@@ -1,0 +1,72 @@
+package com.leave.model;
+import java.sql.*;
+
+import java.io.IOException;
+import java.util.*;
+
+import javax.servlet.http.HttpServletResponse;
+
+public class HR extends User  {
+
+	private ArrayList<LeaveApplication> hrLeaveAprrovalQ;
+	private ArrayList<Employee> empList;
+
+	public ArrayList<Employee> viewLeaveApproval() {
+		return empList;
+
+	}
+
+	public void updateleaveBalance() {
+
+	}
+
+	public ArrayList<Employee> viewEmployeeDetails() {
+		try {
+
+				// load and register JDBC driver for MySQL
+				Class.forName("com.mysql.jdbc.Driver"); 
+				Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/employee?autoReconnect=true&useSSL=false","root","sao!381TsL");
+				Statement stmt=con.createStatement();
+				
+				
+				
+				ResultSet rs=stmt.executeQuery("SELECT * FROM employee.user");
+				while(rs.next())
+				{	
+					Employee emp = new Employee();
+					emp.setAttributes(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4));
+					this.empList.add(emp);
+					System.out.println("Inside HR Class");
+					emp.printUserDetails();
+				}
+			}
+		
+			catch (Exception exc) {
+				System.out.print(exc);
+			}
+		return this.empList;
+	}
+
+	public Employee addEmployee() {
+		return null;
+
+	}
+
+	public void deleteEmployee(int employeeID) {
+
+	}
+
+	public void handleRequest(HttpServletResponse response) {
+
+		System.out.println("HR!!!!!!!!!");
+		printUserDetails();
+		try
+		{
+			response.sendRedirect("/LeaveManagement/JSP/HR.jsp");
+		}
+		catch (IOException ie)
+		{
+			ie.printStackTrace();
+		}
+	}
+}

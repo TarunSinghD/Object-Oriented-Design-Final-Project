@@ -7,7 +7,7 @@ package com.leave.model;
 
 import java.io.IOException;
 import javax.servlet.http.HttpServletResponse;
-
+import javax.servlet.http.HttpServletRequest;
 public abstract class User {
 
 	private int employeeID;
@@ -77,6 +77,6 @@ public abstract class User {
 		System.out.println(this.getRoleType());
 	}
 	
-	public abstract void handleRequest(HttpServletResponse response) throws IOException;
+	public abstract void handleRequest(HttpServletRequest request, HttpServletResponse response) throws IOException;
 	
 }

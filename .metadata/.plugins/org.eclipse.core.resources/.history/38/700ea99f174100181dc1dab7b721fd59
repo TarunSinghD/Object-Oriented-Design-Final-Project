@@ -1,0 +1,39 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+    <%@ page import="com.leave.model.*" %>
+     <%@ page import="java.util.*" %>
+     <%@ page import="javax.servlet.http.*,javax.servlet.*"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+
+<%Employee emp = (Employee)session.getAttribute("Employee");
+	//out.println("++++++++++");
+	//out.println(emp.getName());
+	//emp.printUserDetails();
+	//request.setAttribute("Employee", emp);
+	
+%>
+
+<form>
+
+
+Start Date	<input type="date" id = "start"value="mm/dd/yyyy"><br>
+End Date	<input type="date" id = "end" value="mm/dd/yyyy"><br>
+	<button onclick="myFunction()">Apply Leave</button>
+	
+	<p id="demo"></p>
+	<script>
+function myFunction() {
+    var start = document.getElementById("start").value;
+    var end = document.getElementById("end").value;
+    document.getElementById("demo").innerHTML = end - start;
+}
+</script>
+</form>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+    <%@ page import="com.leave.model.*" %>
+     <%@ page import="java.util.*" %>
+     <%@ page import="javax.servlet.http.*,javax.servlet.*"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+
+<%Employee emp = (Employee)session.getAttribute("Employee");
+	//out.println("++++++++++");
+	//out.println(emp.getName());
+	//emp.printUserDetails();
+	//request.setAttribute("Employee", emp);
+	
+%>
+
+<h3>A demonstration of how to access a Date field</h3>
+
+<input type="date" id="myDate" value="2014-02-09">
+<input type="date" id="endmyDate" value="2014-02-10">
+
+<p>Click the button to get the date of the date field.</p>
+
+<button onclick="myFunction()">Try it</button>
+
+<p><strong>Note:</strong> input elements with type="date" do not show as any date field/calendar in IE 11 and earlier versions.</p>
+
+<p id="demo"></p>
+<p id="demo2"></p>
+<p id="demo3"></p>
+<script>
+function myFunction() {
+    var x = new Date(document.getElementById("myDate").value);
+    var y = new Date(document.getElementById("endmyDate").value);
+    document.getElementById("demo").innerHTML = x;
+    document.getElementById("demo2").innerHTML = y;
+    
+    var oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
+    var diffDays = Math.abs((y.getTime() - x.getTime()) / (oneDay));
+    document.getElementById("demo3").innerHTML =diffDays;
+}
+
+
+</script>
+
+<%
+	out.println(diffDays);
+
+%>
+</body>
+</html>

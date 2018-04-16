@@ -1,6 +1,7 @@
 package com.leave.model;
 import java.util.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 public class Manager extends User {
 	private ArrayList<LeaveApplication> empLeaveRequestQ;
@@ -28,7 +29,7 @@ public class Manager extends User {
 		
 	}
 	
-	public void handleRequest(HttpServletResponse response)
+	public void handleRequest(HttpServletRequest request, HttpServletResponse response)
 	{
 		
 	}

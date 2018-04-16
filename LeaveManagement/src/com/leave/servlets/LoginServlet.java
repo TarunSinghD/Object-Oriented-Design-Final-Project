@@ -92,7 +92,7 @@ public class LoginServlet extends HttpServlet {
 				        //If login is successful
 				        User user = userFactory.createUser(rs.getString(4));
 				        user.setAttributes(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4));
-				        user.handleRequest(response);
+				        user.handleRequest(request, response);
 					}
 				}
 				

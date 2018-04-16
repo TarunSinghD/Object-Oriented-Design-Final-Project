@@ -1,6 +1,9 @@
 package com.leave.model;
+import java.io.IOException;
 import java.util.*;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 public class Employee extends User {
 	private ArrayList<LeaveApplication> empLeaveRequestQ;
@@ -78,9 +81,24 @@ public class Employee extends User {
 		
 	}
 	
-	public void handleRequest(HttpServletResponse response)
+	public void handleRequest(HttpServletRequest request, HttpServletResponse response)
 	{
-		
+		System.out.println("Employee!!!!!!!!!");
+		printUserDetails();
+		try
+		{
+			request.setAttribute("Employee", this);
+			request.getRequestDispatcher("/JSP/Employee.jsp").forward(request, response); 
+			//response.sendRedirect("/LeaveManagement/JSP/Employee.jsp");
+		}
+		catch (ServletException se)
+		{
+			se.printStackTrace();
+		}
+		catch (IOException ie)
+		{
+			ie.printStackTrace();
+		}
 	}
 	
 }

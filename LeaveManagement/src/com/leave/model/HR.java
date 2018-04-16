@@ -4,6 +4,7 @@ import java.sql.*;
 import java.io.IOException;
 import java.util.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class HR extends User  {
@@ -107,7 +108,7 @@ public class HR extends User  {
 		return false;
 	}
 
-	public void handleRequest(HttpServletResponse response) {
+	public void handleRequest(HttpServletRequest request, HttpServletResponse response) {
 
 		System.out.println("HR!!!!!!!!!");
 		printUserDetails();

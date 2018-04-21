@@ -1,0 +1,119 @@
+package com.leave.model;
+import java.io.IOException;
+import java.time.LocalDate;
+import java.time.temporal.*;
+
+
+import java.util.*;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+public class Employee extends User {
+	private ArrayList<LeaveApplication> empLeaveRequestQ;
+	private int managerID;
+	private LeaveBalance empLeaveBalance;
+	
+	
+	// This function will be called when user clicks on the apply leave button
+	public void applyLeave(String leaveType, String startDate, String endDate) 
+	{
+		int noOfDays = 0;
+		//Create a new object of type leave application
+		LeaveApplication leaveApplication = new LeaveApplication();
+		
+		LocalDate startDate1 = LocalDate.parse(startDate);
+		LocalDate endDate1 = LocalDate.parse(endDate);
+		noOfDays = (int)startDate1.until(endDate1, ChronoUnit.DAYS);
+		
+		System.out.println("Employee::applyLeave::NoOfDays=" + noOfDays);
+		
+		leaveApplication.createLeaveApp(this.getEmployeeID(), startDate, endDate, leaveType, noOfDays);
+		
+		//empLeaveRequestQ.add(leaveApplication);
+		
+	}
+	
+
+	
+	public void checkLeaveBalance(Leave leaveType) {
+		
+		// Get the leave balance from leave balance class
+		empLeaveBalance.viewLeaveBalance(leaveType);
+		
+		//Need to display this on the web page
+	
+	}
+	
+	
+	public ArrayList<LeaveApplication> viewApplications() {
+		
+		if (this.empLeaveRequestQ == null)
+		{
+			this.empLeaveRequestQ = new ArrayList<LeaveApplication>();
+		}
+		
+		
+		
+		// Fetch and return Leave Application Status
+		return this.empLeaveRequestQ;
+	}
+	
+	public void cancelLeave(LeaveApplication leaveApplication) {
+		
+		leaveApplication.setApplicationStatus(Status.Cancelled);
+		
+	}
+	public void updateLeaveRequest(LeaveApplication updatedleaveApplication) {
+		
+		for (LeaveApplication leaveApplication : empLeaveRequestQ)
+		{
+			// Check for the required Leave Application by matching the ID
+			if (leaveApplication.getApplicationID() == updatedleaveApplication.getApplicationID())
+			{
+				leaveApplication.setLeaveType(updatedleaveApplication.getLeaveType());
+				leaveApplication.setNoOfDays(updatedleaveApplication.getNoOfDays());
+				leaveApplication.setApplicationStatus(updatedleaveApplication.getApplicationStatus());
+			}
+		}
+		
+	}
+	
+	public int getManagerID() {
+		
+		return managerID;
+	}
+	
+	public LeaveBalance getLeaveBalance() {
+		return empLeaveBalance;
+	}
+	
+
+	
+	public void setManagerID(int managerID) {
+		
+	}
+	
+
+	
+	public void handleRequest(HttpServletRequest request, HttpServletResponse response)
+	{
+		System.out.println("Employee!!!!!!!!!");
+		printUserDetails();
+		try
+		{
+			request.setAttribute("Employee", this);
+			request.getRequestDispatcher("/JSP/Employee.jsp").forward(request, response); 
+			//response.sendRedirect("/LeaveManagement/JSP/Employee.jsp");
+		}
+		catch (ServletException se)
+		{
+			se.printStackTrace();
+		}
+		catch (IOException ie)
+		{
+			ie.printStackTrace();
+		}
+	}
+	
+}

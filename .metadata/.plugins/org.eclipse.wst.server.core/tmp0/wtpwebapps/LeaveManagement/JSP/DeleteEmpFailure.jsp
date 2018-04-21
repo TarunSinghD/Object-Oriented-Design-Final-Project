@@ -14,5 +14,6 @@ Employee not found
  {
  window.location.href = pageURL;
  }
+ </script>
 </body>
 </html>

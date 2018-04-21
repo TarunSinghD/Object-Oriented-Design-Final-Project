@@ -11,6 +11,13 @@
 </head>
 <body>
 <%Employee emp = (Employee)request.getAttribute("Employee");
+
+	if (emp == null)
+	{
+		emp = (Employee)session.getAttribute("Employee");
+	}
+		
+
 	out.println("-----------------------");
 	out.println(emp.getName());
 	//emp.printUserDetails();
@@ -21,6 +28,7 @@
 
 
 <a href="/LeaveManagement/JSP/ApplyLeave.jsp">Apply Leave</a><br/>
-
+<a href="/LeaveManagement/JSP/ViewLeaveApplications.jsp">View Leave Applications</a><br/>
+<a href="/LeaveManagement/JSP/DeleteLeaveApplication.jsp">Delete Leave Applications</a><br/>
 </body>
 </html>

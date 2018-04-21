@@ -1,15 +1,22 @@
 package com.leave.model;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.Statement;
+
 public class LeaveApplication {
 	
 	private int employeeID;
-    private Leave leaveType;
+    private String leaveType;
+    private String startDate;
+    private String endDate;
 	private int noOfDays;
 	private int applicationID ;
-	private Status applicationStatus;
+	private String applicationStatus;
 	public static int applicationCount;
 	
-	public LeaveApplication createLeaveApp (int employeeID ,Leave leaveType , int noOfDays ) 
+	public void createLeaveApp (int employeeID ,String startDate, String endDate, String leaveType , int noOfDays ) 
 	{
 		//Set employee ID, information available in this class itself
 		this.setEmployeeID(employeeID);
@@ -24,9 +31,62 @@ public class LeaveApplication {
 		this.setApplicationID(LeaveApplication.appCounter());
 		
 		// Set default application status to Processing
-		this.setApplicationStatus(Status.Processing);
+		this.setApplicationStatus("New");
 		
-		return this;
+		try {
+
+			// load and register JDBC driver for MySQL
+			Class.forName("com.mysql.jdbc.Driver"); 
+			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/employee?autoReconnect=true&useSSL=false","root","sao!381TsL");
+			Statement stmt=con.createStatement();
+			
+			
+			//stmt.executeQuery("INSERT INTO employee.user (employeeID, username, password) VALUES (7, 'ta', 'emp')");
+			String sql = "INSERT INTO employee.leave_application (empID, startDate, endDate, leaveType, noOfDays)" +
+			        "VALUES (?, ?, ?, ?, ?, ?)";
+
+			PreparedStatement preparedStatement = con.prepareStatement(sql);
+			preparedStatement.setInt(1, employeeID);
+			//preparedStatement.setInt(2, this.applicationID);
+			preparedStatement.setString(2, startDate);
+			preparedStatement.setString(3, endDate);
+			preparedStatement.setString(4, leaveType);
+			preparedStatement.setInt(5, noOfDays);
+			preparedStatement.setString(6, "New");
+			preparedStatement.executeUpdate(); 
+			
+				
+		}
+		catch (Exception exc) {
+			System.out.print(exc);
+		}
+	}
+	
+	public String getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
+	}
+
+	public String getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
+	}
+
+	public void setAttributes(int employeeID ,int applicationID, String startDate, String endDate, String leaveType , int noOfDays, String status)
+	{
+		this.setEmployeeID(employeeID);
+		this.setApplicationID(applicationID);
+		this.setStartDate(startDate);
+		this.setEndDate(endDate);
+		this.setLeaveType(leaveType);
+		this.setNoOfDays(noOfDays);
+		this.setApplicationStatus(status);
 	}
 	
 	public static int appCounter() {
@@ -44,12 +104,12 @@ public class LeaveApplication {
 	}
 	
 	// Function is called when anyone clicks on update
-	public void  updateLeaveAppStatus(Status applicationStatus) {
+	public void  updateLeaveAppStatus(String applicationStatus) {
 		
 		setApplicationStatus(applicationStatus);
 	}
 	
-	public Leave getLeaveType() {
+	public String getLeaveType() {
 		return leaveType;
 		
 	}
@@ -65,11 +125,11 @@ public class LeaveApplication {
 		return applicationID;
 		
 	}
-	public Status getApplicationStatus() {
+	public String getApplicationStatus() {
 		return applicationStatus;
 		
 	}
-	public void setLeaveType(Leave _leaveType ) {
+	public void setLeaveType(String _leaveType ) {
 		this.leaveType = _leaveType;
 	}
 	public void setEmployeeID(int _employeeID ) {
@@ -81,7 +141,7 @@ public class LeaveApplication {
 	public void setApplicationID(int _applicationID ) {
 		this.applicationID = _applicationID;
 	}
-	public void  setApplicationStatus(Status _applicationStatus ) {
+	public void  setApplicationStatus(String _applicationStatus ) {
 		this.applicationStatus = _applicationStatus;
 	}
 

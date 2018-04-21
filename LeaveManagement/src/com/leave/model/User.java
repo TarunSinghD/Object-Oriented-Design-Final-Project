@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletRequest;
 public abstract class User {
 
-	private int employeeID;
+	protected int employeeID;
 	private String password;
 	private String name;
 	private String roleType;

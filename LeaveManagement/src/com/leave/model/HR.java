@@ -22,7 +22,12 @@ public class HR extends User  {
 	}
 
 	public ArrayList<Employee> viewEmployeeDetails() {
-		empList = new ArrayList<Employee>();
+		
+		if (this.empList == null)
+		{
+		
+			this.empList = new ArrayList<Employee>();
+		}
 		try {
 
 				// load and register JDBC driver for MySQL

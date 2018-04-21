@@ -1,0 +1,145 @@
+package com.leave.model;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.Statement;
+
+public class LeaveApplication {
+	
+	private int employeeID;
+    private String leaveType;
+    private String startDate;
+    private String endDate;
+	private int noOfDays;
+	private int applicationID ;
+	private Status applicationStatus;
+	public static int applicationCount;
+	
+	public void createLeaveApp (int employeeID ,String startDate, String endDate, String leaveType , int noOfDays ) 
+	{
+		//Set employee ID, information available in this class itself
+		this.setEmployeeID(employeeID);
+		
+		// Set the leave type, information obtained from HTML page
+		this.setLeaveType(leaveType);
+		
+		// Set no of days, information obtained from HTML page
+		this.setNoOfDays(noOfDays);		
+		
+		// Set leave application ID
+		this.setApplicationID(LeaveApplication.appCounter());
+		
+		// Set default application status to Processing
+		this.setApplicationStatus(Status.Processing);
+		
+		try {
+
+			// load and register JDBC driver for MySQL
+			Class.forName("com.mysql.jdbc.Driver"); 
+			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/employee?autoReconnect=true&useSSL=false","root","sao!381TsL");
+			Statement stmt=con.createStatement();
+			
+			
+			//stmt.executeQuery("INSERT INTO employee.user (employeeID, username, password) VALUES (7, 'ta', 'emp')");
+			String sql = "INSERT INTO employee.leave_application (empID, startDate, endDate, leaveType, noOfDays)" +
+			        "VALUES (?, ?, ?, ?, ?)";
+
+			PreparedStatement preparedStatement = con.prepareStatement(sql);
+			preparedStatement.setInt(1, employeeID);
+			preparedStatement.setString(2, startDate);
+			preparedStatement.setString(3, endDate);
+			preparedStatement.setString(4, leaveType);
+			preparedStatement.setInt(5, noOfDays);
+			preparedStatement.executeUpdate(); 
+			
+				
+		}
+		catch (Exception exc) {
+			System.out.print(exc);
+		}
+	}
+	
+	public String getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
+	}
+
+	public String getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
+	}
+
+	public void setLeaveApplicationAttributes(int employeeID ,int applicationID, String startDate, String endDate, String leaveType , int noOfDays)
+	{
+		this.setEmployeeID(employeeID);
+		this.setApplicationID(applicationID);
+		this.setStartDate(startDate);
+		this.setEndDate(endDate);
+		this.setLeaveType(leaveType);
+		this.setNoOfDays(noOfDays);
+	}
+	
+	public static int appCounter() {
+		// Increment the static variable keeping track of no of leave applications
+		return LeaveApplication.applicationCount++;
+		
+	
+	}
+	
+	// This function will be called when the anyone wants see the leave application details
+	public void viewLeaveApp() {
+		
+		// The details to be displayed in the HTML table is populated using this function
+		
+	}
+	
+	// Function is called when anyone clicks on update
+	public void  updateLeaveAppStatus(Status applicationStatus) {
+		
+		setApplicationStatus(applicationStatus);
+	}
+	
+	public String getLeaveType() {
+		return leaveType;
+		
+	}
+	public int getEmployeeID() {
+		return employeeID;
+		
+	}
+	public int getNoOfDays() {
+		return noOfDays;
+		
+	}
+	public int getApplicationID() {
+		return applicationID;
+		
+	}
+	public Status getApplicationStatus() {
+		return applicationStatus;
+		
+	}
+	public void setLeaveType(String _leaveType ) {
+		this.leaveType = _leaveType;
+	}
+	public void setEmployeeID(int _employeeID ) {
+		this.employeeID = _employeeID;
+	}
+	public void setNoOfDays(int _noOfDays ) {
+		this.noOfDays = _noOfDays;
+	}
+	public void setApplicationID(int _applicationID ) {
+		this.applicationID = _applicationID;
+	}
+	public void  setApplicationStatus(Status _applicationStatus ) {
+		this.applicationStatus = _applicationStatus;
+	}
+
+}

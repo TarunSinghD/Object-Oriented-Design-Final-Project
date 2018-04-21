@@ -16,16 +16,21 @@
 	//out.println(emp.getName());
 	//emp.printUserDetails();
 	//request.setAttribute("Employee", emp);
-	
+	if (emp == null)
+	{
+		System.out.println("Employee object is null");
+	}
 	
 	String startDate = request.getParameter("startDate");
 	String endDate = request.getParameter("endDate");
 	String leaveType = request.getParameter("leaveType");
 	if (startDate != null)
 	{
-		
+		System.out.println("Hi.. Apply Leave JSP");
+		emp.printUserDetails();
+		emp.applyLeave(leaveType, startDate, endDate);
 		session.setAttribute("Employee", emp);
-		response.sendRedirect("/LeaveManagement/JSP/AddEmpSuccess.jsp");
+		response.sendRedirect("/LeaveManagement/JSP/ApplyLeaveSuccess.jsp");
 	}
 	
 	
@@ -33,7 +38,7 @@
 
 <h3>A demonstration of how to access a Date field</h3>
 <form method = "post" action = "#">
-<input type="text"  name="startDate">
+<input type="text"  name="startDate" value="2014-02-04">
 <input type="text"  name = "endDate" value="2014-02-10">
 <select name="leaveType">
   <option value="Casual">Casual</option>

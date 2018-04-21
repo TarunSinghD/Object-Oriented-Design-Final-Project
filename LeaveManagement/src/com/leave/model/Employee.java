@@ -1,5 +1,14 @@
 package com.leave.model;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.time.LocalDate;
+import java.time.temporal.*;
+
+
 import java.util.*;
 
 import javax.servlet.ServletException;
@@ -9,19 +18,28 @@ public class Employee extends User {
 	private ArrayList<LeaveApplication> empLeaveRequestQ;
 	private int managerID;
 	private LeaveBalance empLeaveBalance;
-	private Leave leaveType;
+	
 	
 	// This function will be called when user clicks on the apply leave button
-	public void applyLeave(Leave leaveType, int noOfDays) 
+	public void applyLeave(String leaveType, String startDate, String endDate) 
 	{
+		int noOfDays = 0;
 		//Create a new object of type leave application
 		LeaveApplication leaveApplication = new LeaveApplication();
 		
-		leaveApplication.createLeaveApp(this.getEmployeeID(), leaveType, noOfDays);
+		LocalDate startDate1 = LocalDate.parse(startDate);
+		LocalDate endDate1 = LocalDate.parse(endDate);
+		noOfDays = (int)startDate1.until(endDate1, ChronoUnit.DAYS);
 		
-		empLeaveRequestQ.add(leaveApplication);
+		System.out.println("Employee::applyLeave::NoOfDays=" + noOfDays);
+		
+		leaveApplication.createLeaveApp(this.getEmployeeID(), startDate, endDate, leaveType, noOfDays);
+		
+		//empLeaveRequestQ.add(leaveApplication);
 		
 	}
+	
+
 	
 	public void checkLeaveBalance(Leave leaveType) {
 		
@@ -33,15 +51,75 @@ public class Employee extends User {
 	}
 	
 	
-	public Status viewApplicationStatus(LeaveApplication leaveApplication) {
+	public ArrayList<LeaveApplication> viewApplications() {
+		
+		if (this.empLeaveRequestQ == null)
+		{
+			this.empLeaveRequestQ = new ArrayList<LeaveApplication>();
+		
+		}
+		
+		try {
+
+			// load and register JDBC driver for MySQL
+			Class.forName("com.mysql.jdbc.Driver"); 
+			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/employee?autoReconnect=true&useSSL=false","root","sao!381TsL");
+			Statement stmt=con.createStatement();
+			
+			
+			
+			ResultSet rs=stmt.executeQuery("SELECT * FROM employee.leave_application");
+			this.empLeaveRequestQ.clear();
+			while(rs.next())
+			{	
+				if (rs.getInt(1) == this.employeeID)
+				{
+					LeaveApplication leaveApplication = new LeaveApplication();
+					leaveApplication.setAttributes(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(6), rs.getString(7));
+					this.empLeaveRequestQ.add(leaveApplication);
+				//System.out.println("Inside HR Class");
+				//emp.printUserDetails();
+				}
+			}
+		}
+		catch (Exception exc) {
+			System.out.print(exc);
+		}
 		
 		// Fetch and return Leave Application Status
-		return leaveApplication.getApplicationStatus();
+		return empLeaveRequestQ;
 	}
 	
-	public void cancelLeave(LeaveApplication leaveApplication) {
+	public boolean cancelLeave(int applicationID) {
 		
-		leaveApplication.setApplicationStatus(Status.Cancelled);
+		try {
+
+			// load and register JDBC driver for MySQL
+			Class.forName("com.mysql.jdbc.Driver"); 
+			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/employee?autoReconnect=true&useSSL=false","root","sao!381TsL");
+			Statement stmt=con.createStatement();
+			
+			ResultSet rs=stmt.executeQuery("SELECT * FROM employee.leave_application");
+			while(rs.next())
+			{	
+				if (rs.getInt(2) == applicationID)
+				{
+					String sql = "UPDATE `employee`.`leave_application` SET `status`='Cancelled' WHERE `applicationID`=?";
+
+					PreparedStatement preparedStatement = con.prepareStatement(sql);
+					preparedStatement.setInt(1, applicationID);
+
+					preparedStatement.executeUpdate(); 
+					return true;
+				}
+			}
+			
+		}
+		catch (Exception exc) {
+			System.out.print(exc);
+		}
+		
+		return false;
 		
 	}
 	public void updateLeaveRequest(LeaveApplication updatedleaveApplication) {
@@ -68,18 +146,13 @@ public class Employee extends User {
 		return empLeaveBalance;
 	}
 	
-	public Leave getLeaveType() {
-		
-		return leaveType;
-	}
+
 	
 	public void setManagerID(int managerID) {
 		
 	}
 	
-	public void setLeaveType(Leave leaveType) {
-		
-	}
+
 	
 	public void handleRequest(HttpServletRequest request, HttpServletResponse response)
 	{

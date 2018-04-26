@@ -59,7 +59,7 @@ public class LoginServlet extends HttpServlet {
 
 			// load and register JDBC driver for MySQL
 			Class.forName("com.mysql.jdbc.Driver"); 
-			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/employee?autoReconnect=true&useSSL=false","root","sao!381TsL");
+			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/employee?autoReconnect=true&useSSL=false","root","aerospace");
 			Statement stmt=con.createStatement();
 			
 			

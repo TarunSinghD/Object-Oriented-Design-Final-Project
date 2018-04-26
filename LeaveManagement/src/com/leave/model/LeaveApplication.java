@@ -37,12 +37,12 @@ public class LeaveApplication {
 
 			// load and register JDBC driver for MySQL
 			Class.forName("com.mysql.jdbc.Driver"); 
-			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/employee?autoReconnect=true&useSSL=false","root","sao!381TsL");
+			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/employee?autoReconnect=true&useSSL=false","root","aerospace");
 			Statement stmt=con.createStatement();
 			
 			
 			//stmt.executeQuery("INSERT INTO employee.user (employeeID, username, password) VALUES (7, 'ta', 'emp')");
-			String sql = "INSERT INTO employee.leave_application (empID, startDate, endDate, leaveType, noOfDays)" +
+			String sql = "INSERT INTO employee.leave_application (empID, startDate, endDate, leaveType, noOfDays, status)" +
 			        "VALUES (?, ?, ?, ?, ?, ?)";
 
 			PreparedStatement preparedStatement = con.prepareStatement(sql);

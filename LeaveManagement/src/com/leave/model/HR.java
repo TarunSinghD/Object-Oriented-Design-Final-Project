@@ -7,11 +7,24 @@ import java.util.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.eclipse.jdt.internal.compiler.env.ISourceMethod;
+
 public class HR extends User  {
+
 
 	private ArrayList<LeaveApplication> hrLeaveAprrovalQ;
 	private ArrayList<Employee> empList;
 
+	private static HR hr=null;
+	
+	private HR() {
+		
+	}
+	public static HR getInstance() {
+		if(hr == null)
+			hr = new HR();
+		return hr;
+	}
 	public ArrayList<Employee> viewLeaveApproval() {
 		return empList;
 
@@ -28,11 +41,14 @@ public class HR extends User  {
 		
 			this.empList = new ArrayList<Employee>();
 		}
+		
+		this.empList.clear();
+		{
 		try {
 
 				// load and register JDBC driver for MySQL
 				Class.forName("com.mysql.jdbc.Driver"); 
-				Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/employee?autoReconnect=true&useSSL=false","root","sao!381TsL");
+				Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/employee?autoReconnect=true&useSSL=false","root","aerospace");
 				Statement stmt=con.createStatement();
 				
 				
@@ -51,6 +67,7 @@ public class HR extends User  {
 			catch (Exception exc) {
 				System.out.print(exc);
 			}
+		}
 		return this.empList;
 	}
 
@@ -60,10 +77,9 @@ public class HR extends User  {
 
 			// load and register JDBC driver for MySQL
 			Class.forName("com.mysql.jdbc.Driver"); 
-			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/employee?autoReconnect=true&useSSL=false","root","sao!381TsL");
+			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/employee?autoReconnect=true&useSSL=false","root","aerospace");
 			Statement stmt=con.createStatement();
-			
-			
+						
 			//stmt.executeQuery("INSERT INTO employee.user (employeeID, username, password) VALUES (7, 'ta', 'emp')");
 			String sql = "INSERT INTO employee.user (employeeID, password, name, roleType)" +
 			        "VALUES (?, ?, ?, ?)";
@@ -87,7 +103,7 @@ public class HR extends User  {
 
 			// load and register JDBC driver for MySQL
 			Class.forName("com.mysql.jdbc.Driver"); 
-			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/employee?autoReconnect=true&useSSL=false","root","sao!381TsL");
+			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/employee?autoReconnect=true&useSSL=false","root","aerospace");
 			Statement stmt=con.createStatement();
 			
 			ResultSet rs=stmt.executeQuery("SELECT * FROM employee.user");
@@ -96,11 +112,20 @@ public class HR extends User  {
 				if (rs.getInt(1) == employeeID)
 				{
 					String sql = "DELETE FROM employee.user WHERE employeeID=?";
+					String sql1 = "DELETE FROM employee.leave_balance WHERE employeeID=?";
+					String sql2 = "DELETE FROM employee.leave_application WHERE empID=?";
 
 					PreparedStatement preparedStatement = con.prepareStatement(sql);
+					PreparedStatement preparedStatement1 = con.prepareStatement(sql1);
+					PreparedStatement preparedStatement2 = con.prepareStatement(sql2);
 					preparedStatement.setInt(1, employeeID);
+					preparedStatement1.setInt(1, employeeID);
+					preparedStatement2.setInt(1, employeeID);
 
-					preparedStatement.executeUpdate(); 
+					 
+					preparedStatement1.executeUpdate(); 
+					preparedStatement2.executeUpdate(); 
+					preparedStatement.executeUpdate();
 					return true;
 				}
 			}
@@ -125,9 +150,5 @@ public class HR extends User  {
 		{
 			ie.printStackTrace();
 		}
-	}
-	public void update(LeaveApplication leaveApplication)
-	{
-		
 	}
 }

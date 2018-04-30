@@ -5,13 +5,12 @@ public class LeaveBalance {
 	private int casualLeaveBalance;
 	private int sickLeaveBalance;
 	private int paidLeaveBalance;
-	private Leave leaveType;
 	
-	public void viewLeaveBalance(Leave leaveType) {
+	public void viewLeaveBalance(String leaveType) {
 		
 	}
 	
-	public void UpdateLeaveBalance(Leave leaveType) {
+	public void UpdateLeaveBalance(String leaveType) {
 		
 	}
 	
@@ -30,10 +29,7 @@ public class LeaveBalance {
 		return paidLeaveBalance;
 	}
 	
-	public Leave getLeaveType() {
-		
-		return leaveType;
-	}
+
 	
 	public void setCasualLeaveBalance(int casualLeaveBalance ) {
 		
@@ -47,7 +43,5 @@ public class LeaveBalance {
 		
 	}
 	
-	public void setLeaveType(Leave leaveType ) {
-		
-	}
+
 }

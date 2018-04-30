@@ -9,8 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.eclipse.jdt.internal.compiler.env.ISourceMethod;
 
-public class HR extends User  {
-
+public class HR extends User{
 
 	private ArrayList<LeaveApplication> hrLeaveAprrovalQ;
 	private ArrayList<Employee> empList;
@@ -27,7 +26,6 @@ public class HR extends User  {
 	}
 	public ArrayList<Employee> viewLeaveApproval() {
 		return empList;
-
 	}
 
 	public void updateleaveBalance() {
@@ -50,9 +48,7 @@ public class HR extends User  {
 				Class.forName("com.mysql.jdbc.Driver"); 
 				Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/employee?autoReconnect=true&useSSL=false","root","aerospace");
 				Statement stmt=con.createStatement();
-				
-				
-				
+												
 				ResultSet rs=stmt.executeQuery("SELECT * FROM employee.user");
 				while(rs.next())
 				{	
@@ -150,5 +146,10 @@ public class HR extends User  {
 		{
 			ie.printStackTrace();
 		}
+	}
+	
+	public void update(LeaveApplication leaveApplication)
+	{
+		
 	}
 }

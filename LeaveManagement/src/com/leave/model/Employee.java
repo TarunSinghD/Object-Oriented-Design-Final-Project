@@ -35,16 +35,14 @@ public class Employee extends User {
 		
 		leaveApplication.createLeaveApp(this.getEmployeeID(), startDate, endDate, leaveType, noOfDays);
 		
-		//empLeaveRequestQ.add(leaveApplication);
-		
+		//empLeaveRequestQ.add(leaveApplication);		
 	}
 	
 	
-	public void checkLeaveBalance(Leave leaveType) {
+	public void checkLeaveBalance(String leaveType) {
 		
 		// Get the leave balance from leave balance class
-		empLeaveBalance.viewLeaveBalance(leaveType);
-		
+		empLeaveBalance.viewLeaveBalance(leaveType);		
 		//Need to display this on the web page
 	
 	}
@@ -62,11 +60,10 @@ public class Employee extends User {
 
 			// load and register JDBC driver for MySQL
 			Class.forName("com.mysql.jdbc.Driver"); 
-			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/employee?autoReconnect=true&useSSL=false","root","sao!381TsL");
+			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/employee?autoReconnect=true&useSSL=false","root","aerospace");
 			Statement stmt=con.createStatement();
 			
-			
-			
+			//select all from leave_application table
 			ResultSet rs=stmt.executeQuery("SELECT * FROM employee.leave_application");
 			this.empLeaveRequestQ.clear();
 			while(rs.next())
@@ -76,8 +73,7 @@ public class Employee extends User {
 					LeaveApplication leaveApplication = new LeaveApplication();
 					leaveApplication.setAttributes(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(6), rs.getString(7));
 					this.empLeaveRequestQ.add(leaveApplication);
-				//System.out.println("Inside HR Class");
-				//emp.printUserDetails();
+
 				}
 			}
 		}
@@ -95,7 +91,7 @@ public class Employee extends User {
 
 			// load and register JDBC driver for MySQL
 			Class.forName("com.mysql.jdbc.Driver"); 
-			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/employee?autoReconnect=true&useSSL=false","root","sao!381TsL");
+			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/employee?autoReconnect=true&useSSL=false","root","aerospace");
 			Statement stmt=con.createStatement();
 			
 			ResultSet rs=stmt.executeQuery("SELECT * FROM employee.leave_application");
@@ -118,9 +114,9 @@ public class Employee extends User {
 			System.out.print(exc);
 		}
 		
-		return false;
-		
+		return false;	
 	}
+	
 	public void updateLeaveRequest(LeaveApplication updatedleaveApplication) {
 		
 		for (LeaveApplication leaveApplication : empLeaveRequestQ)
@@ -150,9 +146,7 @@ public class Employee extends User {
 	public void setManagerID(int managerID) {
 		
 	}
-	
-
-	
+		
 	public void handleRequest(HttpServletRequest request, HttpServletResponse response)
 	{
 		System.out.println("Employee!!!!!!!!!");

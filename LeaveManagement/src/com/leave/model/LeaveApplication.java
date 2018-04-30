@@ -39,7 +39,7 @@ public class LeaveApplication {
 
 			// load and register JDBC driver for MySQL
 			Class.forName("com.mysql.jdbc.Driver"); 
-			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/employee?autoReconnect=true&useSSL=false","root","sao!381TsL");
+			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/employee?autoReconnect=true&useSSL=false","root","aerospace");
 			Statement stmt=con.createStatement();
 			
 			
@@ -130,19 +130,14 @@ public class LeaveApplication {
 	public static int appCounter() {
 		// Increment the static variable keeping track of no of leave applications
 		return LeaveApplication.applicationCount++;
-		
-	
+			
 	}
 	
 	// This function will be called when the anyone wants see the leave application details
 	public void viewLeaveApp() {
 		
-		// The details to be displayed in the HTML table is populated using this function
-		
+		// The details to be displayed in the HTML table is populated using this function	
 	}
-	
-	
-	
 	
 	public String getLeaveType() {
 		return leaveType;

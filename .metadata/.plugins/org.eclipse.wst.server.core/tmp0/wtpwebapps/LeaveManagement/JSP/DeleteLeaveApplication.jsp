@@ -64,7 +64,7 @@ Leave Records
             <%
 	}
             %>
-            </TABLE>
+    </TABLE>
             <form method = "post" action = "#">
 Application ID <input type = "text" name = "applicationID">
 

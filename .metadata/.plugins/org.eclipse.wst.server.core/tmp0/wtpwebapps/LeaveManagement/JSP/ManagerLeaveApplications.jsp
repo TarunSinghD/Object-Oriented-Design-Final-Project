@@ -1,0 +1,54 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+          <%@ page import="com.leave.model.*" %>
+     <%@ page import="java.util.*" %>
+     <%@ page import="javax.servlet.http.*,javax.servlet.*"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<TABLE BORDER="1">
+                <TR>
+                    <TH>employeeID</TH>
+                    <TH>applicationID</TH>
+                    <TH>startDate</TH>
+                    <TH>endDate</TH>
+                    <TH>leaveType</TH>
+                    <TH>noOfDays</TH>
+                    <TH>status</TH>
+                </TR>
+<%
+                	Manager man = (Manager)session.getAttribute("Manager");
+                ArrayList<LeaveApplication> manLeaveReq;
+                manLeaveReq = man.getEmpLeaveRequestQ();
+	
+	for(LeaveApplication l: manLeaveReq)
+	{
+%>
+
+                <TR>
+                    <TD> <%=l.getEmployeeID()  %> </TD>
+                    <TD> <%= l.getApplicationID() %> </TD>
+                     <TD> <%= l.getStartDate() %> </TD>
+                      <TD> <%= l.getEndDate() %> </TD>
+                      <TD> <%= l.getLeaveType() %> </TD>
+                      <TD> <%= l.getNoOfDays() %> </TD>
+                      <TD> <%= l.getApplicationStatus() %> </TD>
+                </TR>
+            
+            <%
+            session.setAttribute("Manager", man);
+	}
+            %>
+            </TABLE>
+            
+
+
+
+            <button type="button" name="back" onclick="history.back()">Home Page</button>
+           
+</body>
+</html>

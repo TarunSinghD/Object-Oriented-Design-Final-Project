@@ -4,9 +4,11 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 public class LeaveApplication {
 	
+	private ArrayList<Manager> subscribers;
 	private int employeeID;
     private String leaveType;
     private String startDate;
@@ -37,7 +39,7 @@ public class LeaveApplication {
 
 			// load and register JDBC driver for MySQL
 			Class.forName("com.mysql.jdbc.Driver"); 
-			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/employee?autoReconnect=true&useSSL=false","root","aerospace");
+			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/employee?autoReconnect=true&useSSL=false","root","sao!381TsL");
 			Statement stmt=con.createStatement();
 			
 			
@@ -60,6 +62,42 @@ public class LeaveApplication {
 		catch (Exception exc) {
 			System.out.print(exc);
 		}
+	}
+	
+	public void register(Manager newSubscriber)
+	{
+		if (this.subscribers == null)
+		{
+			this.subscribers = new ArrayList<Manager>();
+			newSubscriber.printUserDetails();
+		}
+		subscribers.add(newSubscriber);
+	}
+
+	public void unregister(User deleteSubscriber)
+	{
+		int subscriberIndex = subscribers.indexOf(deleteSubscriber);
+		System.out.println("Observer " + (subscriberIndex+1) + " deleted");
+		subscribers.remove(subscriberIndex);
+	}
+	
+	public void notifySubscriber()
+	{
+		System.out.println("3. Inside notify function");
+		if (subscribers == null)
+		{
+			System.out.println("Subscribers is null");
+		}
+		for (Manager subscriber: this.subscribers)
+		{
+			subscriber.update(this);
+		}
+	}
+	
+	public void  updateLeaveAppStatus(String applicationStatus) {
+		System.out.println("2. Inside status change function");
+		notifySubscriber();
+		setApplicationStatus(applicationStatus);
 	}
 	
 	public String getStartDate() {
@@ -103,11 +141,8 @@ public class LeaveApplication {
 		
 	}
 	
-	// Function is called when anyone clicks on update
-	public void  updateLeaveAppStatus(String applicationStatus) {
-		
-		setApplicationStatus(applicationStatus);
-	}
+	
+	
 	
 	public String getLeaveType() {
 		return leaveType;
@@ -142,6 +177,8 @@ public class LeaveApplication {
 		this.applicationID = _applicationID;
 	}
 	public void  setApplicationStatus(String _applicationStatus ) {
+		
+		//System.out.println("4. Inside setter function");
 		this.applicationStatus = _applicationStatus;
 	}
 

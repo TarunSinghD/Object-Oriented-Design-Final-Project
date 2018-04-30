@@ -78,5 +78,6 @@ public abstract class User {
 	}
 	
 	public abstract void handleRequest(HttpServletRequest request, HttpServletResponse response) throws IOException;
+	public abstract void update(LeaveApplication leaveApplication);
 	
 }

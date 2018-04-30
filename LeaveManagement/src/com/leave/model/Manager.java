@@ -7,12 +7,32 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.*;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 public class Manager extends User {
 	private ArrayList<LeaveApplication> empLeaveRequestQ;
+	public ArrayList<LeaveApplication> getEmpLeaveRequestQ() {
+		return empLeaveRequestQ;
+	}
+
+	public void setEmpLeaveRequestQ(ArrayList<LeaveApplication> empLeaveRequestQ) {
+		this.empLeaveRequestQ = empLeaveRequestQ;
+	}
+
 	private int managerID;
 	private ArrayList<Employee> empList;
+	
+	public Manager(ArrayList<LeaveApplication> _empLeaveRequestQ, int empid, String password, String name, String roleType)
+	{
+		this.setAttributes(empid, password, name, roleType);
+				
+		for (LeaveApplication l: _empLeaveRequestQ)
+		{	
+			l.register(this);
+		}
+		empLeaveRequestQ = _empLeaveRequestQ;
+	}
 	
 	public ArrayList<LeaveApplication> viewLeaveRequest() {
 		if (this.empLeaveRequestQ == null)
@@ -20,12 +40,14 @@ public class Manager extends User {
 			this.empLeaveRequestQ = new ArrayList<LeaveApplication>();
 		
 		}
+		//empLeaveRequestQ.clear();
+		
 		
 		try {
 
 			// load and register JDBC driver for MySQL
 			Class.forName("com.mysql.jdbc.Driver"); 
-			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/employee?autoReconnect=true&useSSL=false","root","aerospace");
+			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/employee?autoReconnect=true&useSSL=false","root","sao!381TsL");
 			Statement stmt=con.createStatement();
 			
 			ResultSet rs=stmt.executeQuery("SELECT * FROM employee.leave_application");
@@ -51,25 +73,40 @@ public class Manager extends User {
 	
 	public boolean approveLeaveRequest(int applicationID, String status) {
 		try {
-			System.out.println("status");
-            System.out.println(status);
+			
+			//ArrayList<LeaveApplication> leaveRequests = new ArrayList<LeaveApplication>();
+			System.out.println("1. Inside approve leave request");
+            //System.out.println(status);
 			// load and register JDBC driver for MySQL
 			Class.forName("com.mysql.jdbc.Driver"); 
-			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/employee?autoReconnect=true&useSSL=false","root","aerospace");
+			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/employee?autoReconnect=true&useSSL=false","root","sao!381TsL");
 			Statement stmt=con.createStatement();
+			
+			
 			
 			ResultSet rs=stmt.executeQuery("SELECT * FROM employee.leave_application");
 			while(rs.next())
 			{	
+				LeaveApplication leaveApplication = new LeaveApplication();
+				leaveApplication.setAttributes(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(6), rs.getString(7));
+				//leaveRequests.add(leaveApplication);
 				if (rs.getInt(2) == applicationID && status.equals("Approve"))
 				{
-					String sql = "UPDATE `employee`.`leave_application` SET `status`='approved' WHERE `applicationID`=?";
+					String sql = "UPDATE `employee`.`leave_application` SET `status`='Approved' WHERE `applicationID`=?";
 
 					PreparedStatement preparedStatement = con.prepareStatement(sql);
 					preparedStatement.setInt(1, applicationID);
 
 					preparedStatement.executeUpdate(); 
 					return true;
+				}
+			}
+			
+			for (LeaveApplication l:this.empLeaveRequestQ)
+			{
+				if (l.getApplicationID() == applicationID)
+				{
+					l.updateLeaveAppStatus(status);
 				}
 			}
 			
@@ -83,10 +120,11 @@ public class Manager extends User {
 	
 	public boolean denyLeaveRequest(int applicationID,String status) {
 		try {
+			System.out.println("1. Inside Deny leave request");
 
 			// load and register JDBC driver for MySQL
 			Class.forName("com.mysql.jdbc.Driver"); 
-			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/employee?autoReconnect=true&useSSL=false","root","aerospace");
+			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/employee?autoReconnect=true&useSSL=false","root","sao!381TsL");
 			Statement stmt=con.createStatement();
 			
 			ResultSet rs=stmt.executeQuery("SELECT * FROM employee.leave_application");
@@ -104,6 +142,14 @@ public class Manager extends User {
 				}
 			}
 			
+
+			for (LeaveApplication l:this.empLeaveRequestQ)
+			{
+				if (l.getApplicationID() == applicationID)
+				{
+					l.updateLeaveAppStatus(status);
+				}
+			}
 		}
 		catch (Exception exc) {
 			System.out.print(exc);
@@ -124,10 +170,16 @@ public class Manager extends User {
 	public void handleRequest(HttpServletRequest request, HttpServletResponse response)
 	{
 		System.out.println("Manager!!!!!!!!!");
-		printUserDetails();
+		//printUserDetails();
 		try
 		{
-			response.sendRedirect("/LeaveManagement/JSP/Manager.jsp");
+			request.setAttribute("Manager", this);
+			request.getRequestDispatcher("/JSP/Manager.jsp").forward(request, response); 
+			//response.sendRedirect("/LeaveManagement/JSP/Employee.jsp");
+		}
+		catch (ServletException se)
+		{
+			se.printStackTrace();
 		}
 		catch (IOException ie)
 		{
@@ -136,4 +188,15 @@ public class Manager extends User {
 		
 	}
 
+	public void update(LeaveApplication leaveApplication)
+	{
+		System.out.println("4. Inside observer update function");
+		for (LeaveApplication l: empLeaveRequestQ)
+		{
+			if (leaveApplication.getApplicationID() == l.getApplicationID())
+			{
+				l.setApplicationStatus(leaveApplication.getApplicationStatus());
+			}
+		}
+	}
 }

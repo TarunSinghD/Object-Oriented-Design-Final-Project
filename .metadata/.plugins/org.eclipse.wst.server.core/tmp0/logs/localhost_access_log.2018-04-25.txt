@@ -1,0 +1,7 @@
+127.0.0.1 - - [25/Apr/2018:18:47:44 -0600] "GET / HTTP/1.1" 404 1073
+0:0:0:0:0:0:0:1 - - [25/Apr/2018:18:48:28 -0600] "GET /LeaveManagement/HTML/Login.html HTTP/1.1" 200 342
+0:0:0:0:0:0:0:1 - - [25/Apr/2018:18:49:13 -0600] "POST /LeaveManagement/LoginServlet HTTP/1.1" 200 580
+0:0:0:0:0:0:0:1 - - [25/Apr/2018:18:57:13 -0600] "POST /LeaveManagement/LoginServlet HTTP/1.1" 200 580
+0:0:0:0:0:0:0:1 - - [25/Apr/2018:19:04:12 -0600] "GET /LeaveManagement/JSP/ViewLeaveApplications.jsp HTTP/1.1" 200 2120
+0:0:0:0:0:0:0:1 - - [25/Apr/2018:19:14:30 -0600] "GET /LeaveManagement/JSP/ViewLeaveApplications.jsp HTTP/1.1" 200 2120
+0:0:0:0:0:0:0:1 - - [25/Apr/2018:19:14:55 -0600] "GET /LeaveManagement/JSP/ApplyLeave.jsp HTTP/1.1" 200 623

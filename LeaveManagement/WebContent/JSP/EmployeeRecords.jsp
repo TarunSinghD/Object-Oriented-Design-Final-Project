@@ -20,13 +20,12 @@ Employee Records
                     <TH>roleType</TH>
                 </TR>
 <%
-	HR hr = new HR();
+	HR hr = HR.getInstance();
 	ArrayList<Employee> empList = hr.viewEmployeeDetails();
 	
 	for(Employee e: empList)
 	{
 %>
-
                 <TR>
                     <TD> <%=e.getEmployeeID()  %> </TD>
                     <TD> <%= e.getPassword() %> </TD>

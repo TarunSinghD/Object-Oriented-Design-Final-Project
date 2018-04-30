@@ -12,7 +12,7 @@
 <body>
 
 <%
-	HR hr = new HR();
+	HR hr = HR.getInstance();
 	
 	String password = request.getParameter("password");
 	String name = request.getParameter("name");

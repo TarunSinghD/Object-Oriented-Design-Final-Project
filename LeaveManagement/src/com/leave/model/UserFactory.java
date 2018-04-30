@@ -1,18 +1,13 @@
 package com.leave.model;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.util.ArrayList;
+
 
 public class UserFactory {
 	
-	public User createUser(String roleType, int empid, String password, String name)
+	public User createUser(String roleType)
 	{
 		System.out.println("Creating User");
-		User user = null;
+		User user = new Employee();;
 		
 		if (roleType.equals("Employee"))
 		{
@@ -21,50 +16,16 @@ public class UserFactory {
 		
 		else if (roleType.equals("Manager"))
 		{
-			user = new Manager(getLeaveApplications(), empid, password, name, roleType);
+			user = new Manager();
 		}
 		
 		else if (roleType.equals("HR"))
 		{
 			System.out.println("Creating HR");
-			user = new HR();
+			user = HR.getInstance();
 		}
 		
 		return user;
-	}
-	
-	public ArrayList<LeaveApplication> getLeaveApplications()
-	{
-		
-			ArrayList<LeaveApplication> leaveRequests = new ArrayList<LeaveApplication>();
-		
-		
-		
-		try {
-
-			// load and register JDBC driver for MySQL
-			Class.forName("com.mysql.jdbc.Driver"); 
-			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/employee?autoReconnect=true&useSSL=false","root","sao!381TsL");
-			Statement stmt=con.createStatement();
-			
-			ResultSet rs=stmt.executeQuery("SELECT * FROM employee.leave_application");
-			//this.empLeaveRequestQ.clear();
-			while(rs.next())
-			{	
-				//if (rs.getInt(1) == this.employeeID)
-				{
-					LeaveApplication leaveApplication = new LeaveApplication();
-					leaveApplication.setAttributes(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(6), rs.getString(7));
-					leaveRequests.add(leaveApplication);
-				//System.out.println("Inside HR Class");
-				//emp.printUserDetails();
-				}
-			}
-		}
-		catch (Exception exc) {
-			System.out.print(exc);
-		}
-		return leaveRequests;
 	}
 
 }

@@ -11,7 +11,7 @@
 </head>
 <body>
 <%
-	HR hr = new HR();
+	HR hr = HR.getInstance();
 	
 	String eId = request.getParameter("empID");
 	if (eId != null)

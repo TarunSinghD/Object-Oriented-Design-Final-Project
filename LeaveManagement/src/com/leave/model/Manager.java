@@ -10,18 +10,16 @@ import java.util.*;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-public class Manager extends User {
+public class Manager extends User implements Observer{
 	private ArrayList<LeaveApplication> empLeaveRequestQ;
+	
 	public ArrayList<LeaveApplication> getEmpLeaveRequestQ() {
 		return empLeaveRequestQ;
 	}
 
 	public void setEmpLeaveRequestQ(ArrayList<LeaveApplication> empLeaveRequestQ) {
 		this.empLeaveRequestQ = empLeaveRequestQ;
-	}
-
-	private int managerID;
-	private ArrayList<Employee> empList;
+	} 
 	
 	public Manager(ArrayList<LeaveApplication> _empLeaveRequestQ, int empid, String password, String name, String roleType)
 	{
@@ -40,8 +38,6 @@ public class Manager extends User {
 			this.empLeaveRequestQ = new ArrayList<LeaveApplication>();
 		
 		}
-		//empLeaveRequestQ.clear();
-		
 		
 		try {
 
@@ -156,14 +152,7 @@ public class Manager extends User {
 		return false;
 	}
 	
-	public int getManagerID() {
-		
-		return managerID;
-	}
 	
-	public void setManagerID(int managerID) {
-		
-	}
 	
 	public void handleRequest(HttpServletRequest request, HttpServletResponse response)
 	{

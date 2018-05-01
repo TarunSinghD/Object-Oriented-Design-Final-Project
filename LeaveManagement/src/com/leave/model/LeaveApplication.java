@@ -18,7 +18,7 @@ public class LeaveApplication {
 	private String applicationStatus;
 	public static int applicationCount;
 	
-	public void createLeaveApp (int employeeID ,String startDate, String endDate, String leaveType , int noOfDays ) 
+	public void createLeaveApp (int employeeID ,String startDate, String endDate, String leaveType , int noOfDays) 
 	{
 		//Set employee ID, information available in this class itself
 		this.setEmployeeID(employeeID);

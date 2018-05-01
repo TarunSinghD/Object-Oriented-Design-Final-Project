@@ -14,11 +14,20 @@ import java.util.*;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-public class Employee extends User {
+public class Employee extends User implements Observer {
 	private ArrayList<LeaveApplication> empLeaveRequestQ;
-	private int managerID;
 	private LeaveBalance empLeaveBalance;
 	
+	
+	public ArrayList<LeaveApplication> getEmpLeaveRequestQ() {
+		return empLeaveRequestQ;
+	}
+
+
+	public void setEmpLeaveRequestQ(ArrayList<LeaveApplication> empLeaveRequestQ) {
+		this.empLeaveRequestQ = empLeaveRequestQ;
+	}
+
 	
 	// This function will be called when user clicks on the apply leave button
 	public void applyLeave(String leaveType, String startDate, String endDate) 
@@ -99,6 +108,7 @@ public class Employee extends User {
 			{	
 				if (rs.getInt(2) == applicationID)
 				{
+					//update in database when employee cancel the leave
 					String sql = "UPDATE `employee`.`leave_application` SET `status`='Cancelled' WHERE `applicationID`=?";
 
 					PreparedStatement preparedStatement = con.prepareStatement(sql);
@@ -132,21 +142,12 @@ public class Employee extends User {
 		
 	}
 	
-	public int getManagerID() {
-		
-		return managerID;
-	}
 	
 	public LeaveBalance getLeaveBalance() {
 		return empLeaveBalance;
 	}
-	
-
-	
-	public void setManagerID(int managerID) {
 		
-	}
-		
+	//conncetion to servlet when employee login
 	public void handleRequest(HttpServletRequest request, HttpServletResponse response)
 	{
 		System.out.println("Employee!!!!!!!!!");

@@ -15,7 +15,6 @@ public abstract class User {
 	private String name;
 	private String roleType;
 	
-
 	// Methods
 
 	public boolean login(String username, String password) {

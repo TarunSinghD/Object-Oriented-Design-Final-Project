@@ -36,13 +36,9 @@ public class UserFactory {
 
 	public ArrayList<LeaveApplication> getLeaveApplications()
 	{
-		
 			ArrayList<LeaveApplication> leaveRequests = new ArrayList<LeaveApplication>();
 		
-		
-		
 		try {
-
 			// load and register JDBC driver for MySQL
 			Class.forName("com.mysql.jdbc.Driver"); 
 			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/employee?autoReconnect=true&useSSL=false","root","aerospace");
@@ -57,8 +53,6 @@ public class UserFactory {
 					LeaveApplication leaveApplication = new LeaveApplication();
 					leaveApplication.setAttributes(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(6), rs.getString(7));
 					leaveRequests.add(leaveApplication);
-				//System.out.println("Inside HR Class");
-				//emp.printUserDetails();
 				}
 			}
 		}
